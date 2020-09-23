@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe 'POST /signup', type: :request do
   let(:url) { '/signup' }
 
-
   context 'when user is unauthenticated' do
     let(:params) do
       {
@@ -20,12 +19,12 @@ RSpec.describe 'POST /signup', type: :request do
     end
 
     it 'returns a new user' do
-      expect(json['email']).to eq'new_user@email.com'
+      expect(json['email']).to eq 'new_user@email.com'
     end
   end
 
   context 'when user already exists' do
-    let!(:user) { create(:user)}
+    let!(:user) { create(:user) }
     let(:params) do
       {
         user: {
