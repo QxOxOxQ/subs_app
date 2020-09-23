@@ -10,4 +10,9 @@ Rails.application.routes.draw do
                sessions: 'sessions',
                registrations: 'registrations'
              }
+  namespace :api, defaults: { format: :json } do
+    scope module: :v1 do
+      resources :subscriptions, only: %i[create destroy]
+    end
+  end
 end
