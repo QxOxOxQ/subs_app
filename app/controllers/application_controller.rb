@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::API
   before_action :authenticate_user!
 
@@ -11,25 +13,24 @@ class ApplicationController < ActionController::API
   def render_not_found_response(exception)
     render json: { error: exception.message }, status: :not_found
   end
-  
-  def render_resource(resource)
-    if resource.errors.empty?
-      render json: resource
-    else
-      validation_error(resource)
+
+  def render_result(result)
+    result.success do |subscription:|
+      render json: subscription
+    end
+    result.failure do |message:, type:|
+      validation_error(message, type)
     end
   end
 
-  def validation_error(resource)
+  def validation_error(message, type)
     render json: {
-      errors: [
-        {
-          status: '400',
-          title: 'Bad Request',
-          detail: resource.errors,
-          code: '100'
-        }
-      ]
+      error:
+          {
+            message: message,
+            type: type
+          }
+
     }, status: :bad_request
   end
 end
