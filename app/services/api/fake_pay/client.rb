@@ -3,6 +3,7 @@
 module Api
   module FakePay
     class Client
+      API_ERROR = Class.new(StandardError)
       API_ENDPOINT = 'https://www.fakepay.io'
 
       def initialize
@@ -35,6 +36,10 @@ module Api
         )
       end
 
+      def response_successful?
+        response.status == HTTP_OK_CODE
+      end
+
       private
 
       def client
@@ -47,7 +52,9 @@ module Api
 
       def request(http_method:, endpoint:, params: {})
         response = client.public_send(http_method, endpoint, params)
-        Oj.load(response.body)
+        return Oj.load(response.body) if [200, 422].include?(response.status)
+
+        raise API_ERROR, "Code: #{response.status}, response: #{response.body}"
       end
     end
   end
