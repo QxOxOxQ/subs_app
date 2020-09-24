@@ -9,6 +9,8 @@ gem 'rails', '~> 6.0.0'
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'devise-jwt'
+gem 'dry-matcher'
+gem 'dry-monads'
 gem 'faraday'
 gem 'kaminari'
 gem 'oj'
@@ -37,6 +39,8 @@ group :development, :test do
 
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development do

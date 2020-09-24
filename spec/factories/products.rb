@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :product do
-    name { 'MyString' }
-    price { 1 }
+    name { Faker::Movie.title }
+    price { Faker::Number.number(digits: 9) }
   end
 end
