@@ -41,6 +41,13 @@ RSpec.describe Api::V1::SubscriptionsController, type: :request do
         expect(user.credit_card_token).to eq 'fake_token_123456789'
       end
 
+      it 'add shipping to user' do
+        subject
+        expect(user.name).to eq shipping[:name]
+        expect(user.address).to eq shipping[:address]
+        expect(user.zip_code).to eq shipping[:zip_code]
+      end
+
       it 'response success' do
         subject
         expect(response).to have_http_status(:success)
@@ -70,6 +77,13 @@ RSpec.describe Api::V1::SubscriptionsController, type: :request do
       it 'NO add credit card token to user' do
         subject
         expect(user.credit_card_token).to eq nil
+      end
+
+      it 'add shipping to user' do
+        subject
+        expect(user.name).to eq shipping[:name]
+        expect(user.address).to eq shipping[:address]
+        expect(user.zip_code).to eq shipping[:zip_code]
       end
 
       it 'response faile' do
