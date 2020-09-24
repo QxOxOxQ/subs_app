@@ -38,11 +38,11 @@ RSpec.describe 'POST /signup', type: :request do
     end
 
     it 'returns bad request status' do
-      expect(response.status).to eq 400
+      expect(response).to have_http_status(:bad_request)
     end
 
     it 'returns validation errors' do
-      expect(json['errors'].first['title']).to eq('Bad Request')
+      expect(json['error']['title']).to eq('Bad Request')
     end
   end
 end
