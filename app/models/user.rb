@@ -6,4 +6,6 @@ class User < ApplicationRecord
   has_many :products, through: :subscriptions
 
   validates :email, uniqueness: true
+
+  attr_encrypted :credit_card_token, key: [Rails.application.credentials[:user][:credit_card_token_encryption_key]].pack('H*')
 end
